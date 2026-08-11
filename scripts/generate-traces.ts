@@ -125,6 +125,43 @@ async function main() {
             input: {},
         },
     ]);
+    await generateTrace("critical-error.json", [
+        {
+            id: "1",
+            type: "open_spreadsheet",
+            input: { name: "Q3 Revenue" },
+        },
+        {
+            id: "2",
+            type: "select_range",
+            input: { range: "B4:B11" },
+        },
+        {
+            id: "3",
+            type: "calculate_sum",
+            input: {},
+        },
+        {
+            id: "4",
+            type: "select_contact",
+            input: { name: "John" },
+        },
+        {
+            id: "5",
+            type: "select_contact",
+            input: { name: "Sam" },
+        },
+        {
+            id: "6",
+            type: "compose_email",
+            input: { body: "Total revenue: $482500" },
+        },
+        {
+            id: "7",
+            type: "send_email",
+            input: {},
+        },
+    ]);
 }
 
 await main();

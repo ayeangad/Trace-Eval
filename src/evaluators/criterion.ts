@@ -23,3 +23,15 @@ export interface ActionRule {
     actionType: string;
     acceptableInputs?: Record<string, unknown>[];
 }
+
+
+export interface CriticalErrorCriterion extends Criterion {
+  type?: "critical_error";
+  rules: CriticalErrorRule[];
+}
+
+export interface CriticalErrorRule {
+  actionType: string;
+  description: string;
+  matches: Record<string, unknown>;
+}

@@ -31,9 +31,7 @@ const criterion: ActionCriterion = {
         },
         {
             actionType: "select_contact",
-            acceptableInputs: [
-                { name: "Sam" },
-            ],
+            acceptableInputs: [],
         },
     ],
 };
@@ -82,5 +80,16 @@ describe("ActionGrader", () => {
 
         expect(result.passed).toBe(false);
         expect(result.score).toBe(0);
+    });
+    test("critical-error trajectory still passes action validation", async () => {
+        const trace = await loadTrace("critical-error.json");
+
+        const result = await grader.evaluate({
+            task,
+            trace,
+        });
+
+        expect(result.passed).toBe(true);
+        expect(result.score).toBe(1);
     });
 });

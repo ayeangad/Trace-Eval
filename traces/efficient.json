@@ -1,8 +1,8 @@
 {
-  "id": "37269774-f86a-416c-be8d-5aa5099f9319",
+  "id": "d3a19480-1562-4541-82e4-b872c3783dc7",
   "taskId": "revenue-email",
-  "startedAt": "2026-08-11T15:39:12.707Z",
-  "completedAt": "2026-08-11T15:39:12.708Z",
+  "startedAt": "2026-08-11T16:34:02.188Z",
+  "completedAt": "2026-08-11T16:34:02.189Z",
   "initialState": {
     "spreadsheet": {
       "name": "Q3 Revenue",
@@ -17,7 +17,7 @@
     {
       "id": "1",
       "index": 0,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "1",
         "type": "open_spreadsheet",
@@ -28,12 +28,12 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.2401699999999991
+      "durationMs": 0.11452099999999987
     },
     {
       "id": "2",
       "index": 1,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "2",
         "type": "select_range",
@@ -44,12 +44,12 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.0066619999999986135
+      "durationMs": 0.003265999999999991
     },
     {
       "id": "3",
       "index": 2,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "3",
         "type": "calculate_sum",
@@ -58,12 +58,12 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.004605999999999
+      "durationMs": 0.002447000000000088
     },
     {
       "id": "4",
       "index": 3,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "4",
         "type": "select_contact",
@@ -74,12 +74,12 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.003287000000000262
+      "durationMs": 0.0017519999999997538
     },
     {
       "id": "5",
       "index": 4,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "5",
         "type": "compose_email",
@@ -90,12 +90,12 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.002776000000000778
+      "durationMs": 0.0011030000000005202
     },
     {
       "id": "6",
       "index": 5,
-      "timestamp": "2026-08-11T15:39:12.708Z",
+      "timestamp": "2026-08-11T16:34:02.189Z",
       "action": {
         "id": "6",
         "type": "send_email",
@@ -104,7 +104,7 @@
       "result": {
         "success": true
       },
-      "durationMs": 0.0030580000000028917
+      "durationMs": 0.0014299999999991542
     }
   ],
   "finalState": {
