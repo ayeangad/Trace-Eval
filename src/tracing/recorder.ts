@@ -1,23 +1,24 @@
-import type { Action, ActionResult, TraceAction } from "../models/action";
-import type { Environment, EnvironmentTrace } from "../models/environment";
-import type { RevenueEmailEnvironment } from "../environment/revenue-email";
-import type { ActionTrace } from "../models/trace";
+import type { Action, ActionResult, TraceAction } from "../models/action.js";
+import type { Environment, EnvironmentTrace } from "../models/environment.js";
 
-
-export class TraceRecorder {
-    private actions: TraceAction[] = [];
+export class TraceRecorder<TState = unknown> {
+    private readonly actions: TraceAction[] = [];
     private readonly startedAt: string;
+    private readonly initialState: TState;
 
     constructor(
-        private readonly environment: RevenueEmailEnvironment,
+        private readonly environment: Environment<TState>,
         private readonly taskId: string,
     ) {
         this.startedAt = new Date().toISOString();
+        this.initialState = structuredClone(environment.getState());
     }
 
-    execute(action: Action): ActionResult {
+    async execute(action: Action): Promise<ActionResult> {
         const startTime = performance.now();
-        const result = this.environment.execute(action);
+
+        const result = await this.environment.execute(action);
+
         const durationMs = performance.now() - startTime;
 
         this.actions.push({
@@ -32,13 +33,15 @@ export class TraceRecorder {
         return result;
     }
 
-    getTrace(): ActionTrace {
+    getTrace(): EnvironmentTrace {
         return {
             id: crypto.randomUUID(),
             taskId: this.taskId,
             startedAt: this.startedAt,
             completedAt: new Date().toISOString(),
+            initialState: structuredClone(this.initialState),
             actions: structuredClone(this.actions),
+            finalState: structuredClone(this.environment.getState()),
         };
     }
 }
