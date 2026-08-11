@@ -9,11 +9,6 @@ export interface OutcomeCriterion extends Criterion {
     expectedState?: unknown;
 }
 
-export interface TrajectoryCriterion extends Criterion {
-    type?: "trajectory";
-    rules?: string[];
-}
-
 export interface ActionCriterion extends Criterion {
     type?: "action";
     rules: ActionRule[];

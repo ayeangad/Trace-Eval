@@ -1,4 +1,4 @@
-import type { ActionCriterion, CriticalErrorCriterion, OutcomeCriterion, TrajectoryCriterion } from "../evaluators/criterion";
+import type { ActionCriterion, CriticalErrorCriterion, OutcomeCriterion } from "../evaluators/criterion";
 
 export interface Task {
     id: string;
@@ -8,10 +8,9 @@ export interface Task {
 }
 
 export interface TaskSpec {
-    actionCriteria: any;
     task: Task;
 
+    actionCriteria: ActionCriterion[];
     requiredOutcomes: OutcomeCriterion[];
-    trajectoryCriteria: TrajectoryCriterion[];
     criticalErrorCriteria: CriticalErrorCriterion[]
 }

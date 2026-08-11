@@ -35,7 +35,7 @@ export async function evaluateTrace(
     ).evaluate(context);
 
     const actions = await new ActionGrader(
-        taskSpec.actionCriteria[0],
+        taskSpec.actionCriteria[0]!,
     ).evaluate(context);
 
     const criticalErrors = await new CriticalErrorGrader(
