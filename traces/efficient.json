@@ -1,0 +1,122 @@
+{
+  "id": "37269774-f86a-416c-be8d-5aa5099f9319",
+  "taskId": "revenue-email",
+  "startedAt": "2026-08-11T15:39:12.707Z",
+  "completedAt": "2026-08-11T15:39:12.708Z",
+  "initialState": {
+    "spreadsheet": {
+      "name": "Q3 Revenue",
+      "revenueRange": "B4:B11",
+      "revenueTotal": 482500
+    },
+    "email": {
+      "sent": false
+    }
+  },
+  "actions": [
+    {
+      "id": "1",
+      "index": 0,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "1",
+        "type": "open_spreadsheet",
+        "input": {
+          "name": "Q3 Revenue"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.2401699999999991
+    },
+    {
+      "id": "2",
+      "index": 1,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "2",
+        "type": "select_range",
+        "input": {
+          "range": "B4:B11"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.0066619999999986135
+    },
+    {
+      "id": "3",
+      "index": 2,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "3",
+        "type": "calculate_sum",
+        "input": {}
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.004605999999999
+    },
+    {
+      "id": "4",
+      "index": 3,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "4",
+        "type": "select_contact",
+        "input": {
+          "name": "Sam"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.003287000000000262
+    },
+    {
+      "id": "5",
+      "index": 4,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "5",
+        "type": "compose_email",
+        "input": {
+          "body": "Total revenue: $482500"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.002776000000000778
+    },
+    {
+      "id": "6",
+      "index": 5,
+      "timestamp": "2026-08-11T15:39:12.708Z",
+      "action": {
+        "id": "6",
+        "type": "send_email",
+        "input": {}
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.0030580000000028917
+    }
+  ],
+  "finalState": {
+    "spreadsheet": {
+      "name": "Q3 Revenue",
+      "revenueRange": "B4:B11",
+      "revenueTotal": 482500
+    },
+    "email": {
+      "recipient": "Sam",
+      "body": "Total revenue: $482500",
+      "sent": true
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "id": "9fb0ae6f-5db9-41e2-8eb0-72dfedc6fd5f",
+  "taskId": "revenue-email",
+  "startedAt": "2026-08-11T15:39:12.709Z",
+  "completedAt": "2026-08-11T15:39:12.710Z",
+  "initialState": {
+    "spreadsheet": {
+      "name": "Q3 Revenue",
+      "revenueRange": "B4:B11",
+      "revenueTotal": 482500
+    },
+    "email": {
+      "sent": false
+    }
+  },
+  "actions": [
+    {
+      "id": "1",
+      "index": 0,
+      "timestamp": "2026-08-11T15:39:12.709Z",
+      "action": {
+        "id": "1",
+        "type": "open_spreadsheet",
+        "input": {
+          "name": "Q3 Revenue"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.0037079999999996005
+    },
+    {
+      "id": "2",
+      "index": 1,
+      "timestamp": "2026-08-11T15:39:12.709Z",
+      "action": {
+        "id": "2",
+        "type": "select_range",
+        "input": {
+          "range": "A1:A5"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.0017440000000021882
+    },
+    {
+      "id": "3",
+      "index": 2,
+      "timestamp": "2026-08-11T15:39:12.709Z",
+      "action": {
+        "id": "3",
+        "type": "calculate_sum",
+        "input": {}
+      },
+      "result": {
+        "success": false,
+        "error": "Cannot calculate sum for range 'A1:A5'."
+      },
+      "durationMs": 0.005653999999999826
+    },
+    {
+      "id": "4",
+      "index": 3,
+      "timestamp": "2026-08-11T15:39:12.710Z",
+      "action": {
+        "id": "4",
+        "type": "select_contact",
+        "input": {
+          "name": "John"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.4079010000000025
+    },
+    {
+      "id": "5",
+      "index": 4,
+      "timestamp": "2026-08-11T15:39:12.710Z",
+      "action": {
+        "id": "5",
+        "type": "compose_email",
+        "input": {
+          "body": "Total revenue: $100"
+        }
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.004749000000000336
+    },
+    {
+      "id": "6",
+      "index": 5,
+      "timestamp": "2026-08-11T15:39:12.710Z",
+      "action": {
+        "id": "6",
+        "type": "send_email",
+        "input": {}
+      },
+      "result": {
+        "success": true
+      },
+      "durationMs": 0.0026359999999989725
+    }
+  ],
+  "finalState": {
+    "spreadsheet": {
+      "name": "Q3 Revenue",
+      "revenueRange": "B4:B11",
+      "revenueTotal": 482500
+    },
+    "email": {
+      "recipient": "John",
+      "body": "Total revenue: $100",
+      "sent": true
+    }
+  }
+}
