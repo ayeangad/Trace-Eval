@@ -62,9 +62,21 @@ export class RevenueEmailEnvironment implements Environment<RevenueEmailState> {
                     };
                 }
 
-
-
                 this.state.email.sent = true;
+                return { success: true };
+            }
+            case "compose_email": {
+                const body = action.input.body as string;
+
+                if (!body) {
+                    return {
+                        success: false,
+                        error: "Cannot compose email with an empty body.",
+                    };
+                }
+
+                this.state.email.body = body;
+
                 return { success: true };
             }
             default:
