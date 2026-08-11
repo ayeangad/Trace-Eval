@@ -1,4 +1,3 @@
-import type { EnvironmentTrace } from "../models/environment";
 import type { OutcomeCriterion } from "./criterion";
 import type {
     EvaluationContext,

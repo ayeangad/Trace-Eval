@@ -1,4 +1,4 @@
-import type { Criterion } from "./criterion";
+import type { ActionCriterion, ActionRule } from "./criterion";
 import type {
     EvaluationContext,
     Grader,
@@ -7,33 +7,71 @@ import type {
 
 export class ActionGrader implements Grader {
     constructor(
-        public readonly criterion: Criterion,
+        public readonly criterion: ActionCriterion,
     ) { }
 
     async evaluate(context: EvaluationContext): Promise<GraderResult> {
-        const failedActions = context.trace.actions.filter(
-            (action) => !action.result.success,
-        );
+        const violations: Array<{
+            actionId: string;
+            actionType: string;
+            input: Record<string, unknown>;
+            reason: string;
+        }> = [];
 
-        if (failedActions.length === 0) {
-            return {
-                passed: true,
-                score: 1,
-                reasoning: "All actions executed successfully.",
-            };
+        for (const traceAction of context.trace.actions) {
+            const rule = this.criterion.rules.find(
+                (rule) => rule.actionType === traceAction.action.type,
+            );
+
+            if (!rule) {
+                continue;
+            }
+
+            if (!isAcceptableInput(traceAction.action.input, rule)) {
+                violations.push({
+                    actionId: traceAction.id,
+                    actionType: traceAction.action.type,
+                    input: traceAction.action.input,
+                    reason: "Action input is not in the acceptable action set.",
+                });
+            }
         }
 
+        const passed = violations.length === 0;
+
         return {
-            passed: false,
-            score: 0,
-            reasoning: `${failedActions.length} action(s) failed.`,
+            passed,
+            score: passed ? 1 : 0,
+            reasoning: passed
+                ? "All evaluated actions were within their acceptable action sets."
+                : `${violations.length} action(s) violated the acceptable action rules.`,
             metadata: {
-                failedActions: failedActions.map((action) => ({
-                    id: action.id,
-                    type: action.action.type,
-                    error: action.result.error,
-                })),
+                violations,
             },
         };
     }
 }
+
+function isAcceptableInput(
+    input: Record<string, unknown>,
+    rule: ActionRule,
+): boolean {
+    if (!rule.acceptableInputs || rule.acceptableInputs.length === 0) {
+        return true;
+    }
+
+    return rule.acceptableInputs.some(
+        (acceptableInput) => matchesInput(input, acceptableInput),
+    );
+}
+
+function matchesInput(
+    actual: Record<string, unknown>,
+    expected: Record<string, unknown>,
+): boolean {
+    return Object.entries(expected).every(
+        ([key, expectedValue]) =>
+            Object.is(actual[key], expectedValue),
+    );
+}
+
