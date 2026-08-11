@@ -1,5 +1,8 @@
 import { expect, test } from "bun:test";
-import { formatEvaluationReport } from "../../src/reporting/format";
+import {
+    formatEvaluationReport,
+    formatEvaluationSummary,
+} from "../../src/reporting/format";
 import type { EvaluationReport } from "../../src/evaluation";
 
 test("formats an evaluation report", () => {
@@ -71,4 +74,75 @@ test("formats an evaluation report", () => {
     expect(output).toContain("Trajectory Quality");
     expect(output).toContain("0.82");
     expect(output).toContain("Overall: ✗ FAIL");
+});
+
+test("formats multiple evaluation reports as a summary", () => {
+    const report: EvaluationReport = {
+        taskId: "revenue-email",
+
+        outcome: {
+            passed: true,
+            score: 1,
+        },
+
+        actions: {
+            passed: false,
+            score: 0,
+        },
+
+        criticalErrors: {
+            passed: true,
+            score: 1,
+        },
+
+        trajectory: {
+            score: 0.9,
+            reasoning: "Minor inefficiency.",
+            strengths: [],
+            weaknesses: [],
+            issues: [],
+        },
+
+        overall: {
+            passed: false,
+            score: 0.9,
+        },
+    };
+
+    const efficientReport: EvaluationReport = {
+        ...report,
+
+        actions: {
+            passed: true,
+            score: 1,
+        },
+
+        trajectory: {
+            ...report.trajectory,
+            score: 0.98,
+        },
+
+        overall: {
+            passed: true,
+            score: 0.98,
+        },
+    };
+
+    const output = formatEvaluationSummary([
+        {
+            filename: "efficient.json",
+            report: efficientReport,
+        },
+        {
+            filename: "inefficient.json",
+            report,
+        },
+    ]);
+
+    expect(output).toContain("TraceEval Evaluation Summary");
+    expect(output).toContain("efficient.json");
+    expect(output).toContain("inefficient.json");
+    expect(output).toContain("0.98");
+    expect(output).toContain("0.90");
+    expect(output).toContain("1/2 traces passed");
 });

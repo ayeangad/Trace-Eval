@@ -107,3 +107,55 @@ export function formatEvaluationReport(
 function status(passed: boolean): string {
     return passed ? "✓" : "✗";
 }
+
+export function formatEvaluationSummary(
+    reports: Array<{
+        filename: string;
+        report: EvaluationReport;
+    }>,
+): string {
+    const lines: string[] = [];
+
+    lines.push("TraceEval Evaluation Summary");
+    lines.push("────────────────────────────────────────────────────────────");
+    lines.push("");
+
+    lines.push(
+        [
+            "Trace".padEnd(24),
+            "Outcome".padEnd(10),
+            "Actions".padEnd(10),
+            "Critical".padEnd(10),
+            "Trajectory".padEnd(12),
+            "Overall",
+        ].join(""),
+    );
+
+    lines.push("─".repeat(76));
+
+    for (const { filename, report } of reports) {
+        lines.push(
+            [
+                filename.padEnd(24),
+                status(report.outcome.passed).padEnd(10),
+                status(report.actions.passed).padEnd(10),
+                status(report.criticalErrors.passed).padEnd(10),
+                report.trajectory.score.toFixed(2).padEnd(12),
+                report.overall.passed ? "PASS" : "FAIL",
+            ].join(""),
+        );
+    }
+
+    lines.push("");
+    lines.push("────────────────────────────────────────────────────────────");
+
+    const passed = reports.filter(
+        ({ report }) => report.overall.passed,
+    ).length;
+
+    lines.push(
+        `${passed}/${reports.length} traces passed`,
+    );
+
+    return lines.join("\n");
+}
